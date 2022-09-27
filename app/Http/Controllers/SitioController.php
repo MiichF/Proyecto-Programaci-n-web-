@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 class SitioController extends Controller
 {
     //<?php
@@ -21,7 +23,7 @@ class SitioController extends Controller
             
             }
         
-        return view('contacto', compact('nombre','correo','codigo'));
+        return view('contacto', compact('nombre','correo'));
         }
 
      Public function LandingPage()
@@ -29,24 +31,32 @@ class SitioController extends Controller
         return view('LandingPage');
      }   
 
-     Public function contacto1()
-     {
-        return view('contacto');
-     }  
     
      Public function recibirFormContacto(Request $request){
         //recibir info
         //validar
-        
-        dd($request);
+    
         
         $request -> validate([
-            'nombre' => 'required|max:255|min:3',
-            'correo' => ['required','email'],
-            'mensaje'=> 'required',
+            'nombre' =>'required|max:255|min:3',
+            'correo' =>'required|email',
+            'mensaje'=>'required',
         ]);
         //insertar a BD
+        
+        DB::table('usuarios')->insert([
+            'nombre' => $request -> nombre,
+            'correo' => $request -> correo,
+            'mensaje' => $request -> mensaje,
+            'created_at' => now(),
+            'updated_at' => now(),
+            
+            
+        ]);
 
+        return redirect('/contacto');
+
+        echo("funciona");
 
      }
 

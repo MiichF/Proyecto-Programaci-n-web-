@@ -14,6 +14,5 @@ use App\Http\Controllers\SitioController;
 */
 
 Route::get('/',[SitioController:: class, 'LandingPage']);
-Route::get('/contacto', [SitioController::class, 'contacto1']);
 Route::post('/contacto-recibe-form', [SitioController::class, 'recibirFormContacto']);
 Route::get('/contacto/{codigo?}', [SitioController:: class, 'contacto']);

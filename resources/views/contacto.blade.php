@@ -26,39 +26,35 @@
     <link href="css/estilos.css" rel="stylesheet">
 </head>
 
-<body>
-                        <div class="card-body rounded-bottom bg-white p-5">
-                            <form action="/contacto-recibe-form" method ="POST">
-                            @csrf   
-                            <div class="form-group">
-                                    <label> Nombre</label><br>
-                                    <input type="text" class="form-control p-4" placeholder="Nombre" name="nombre" value =  {{ $nombre }}>
-                                    @error('nombre')
-                                        <i>{{ $message }}</i> 
-                                    @enderror                              
-                                </div>
-                                <div class="form-group">
-                                <label> Correo</label><br>
-                                    <input type="text" class="form-control p-4" placeholder="Correo Electronico"  nome="correo" value = {{ $correo }}>
-                                    @error('correo')
-                                        <i>{{ $message }}</i> 
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                <label> Mensaje</label><br>
-                                    <textarea name="mensaje" class="form-control p-4" id ="mensaje"  cols ="30" rows= "10">
-                                            
-                                </textarea>
-                                @error('mensaje')
-                                        <i>{{ $message }}</i> 
-                                    @enderror
-                                </div>
-                                <div>
-                                    <button class="btn btn-primary btn-block py-3" type="submit">Enviar</button>
-                                </div>
-                            </form>
-                        </div>
-                    
-</body>
+<header>
+        <h1 id="title">Contacto</h1>
+    </header>
 
+    <form id="survey-form" action="/contacto-recibe-form" method="POST">
+        @csrf
+        <label id="name-label" for="name">Nombre</label><br>
+        <input id="name" type="text"  name="nombre" value = {{$nombre}}><br>
+
+        <label id="email-label" for="email">Correo</label><br>
+        <input id="email" type="text" name="correo" value= {{$correo}}><br>
+        
+
+        <p>Mensaje</p><br>
+        <textarea id="suggestions" name="mensaje" placeholder="Escribe tu mensaje"></textarea>
+        
+        <input id="submit" type="submit" value="Submit">
+
+        @if($errors->any())
+        <div>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{$error}}</li>
+                    <br>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+    </form>
+
+</body>
 </html>
